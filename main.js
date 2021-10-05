@@ -1,52 +1,95 @@
+const container = document.querySelector('.container');
+
+container.addEventListener('click', resultado => {
+    if (humanScore == 5){
+        alert("VOCE GANHOU!!!!");
+    } if (computerScore == 5){
+        alert("VOCE PERDEU!!!");
+    }
+});
+
+let humanScore = 0;
+let computerScore = 0;
+
+const score = document.createElement('div');
+score.classList.add('score');
+
 function computerPlay(){
     numeroGerado = Math.random()
     if (numeroGerado <= 0.33){
-        return "rock";
+        return "Pedra";
     } else if (numeroGerado > 0.33 && numeroGerado <= 0.66){
-        return "paper";
+        return "Papel";
     } else if (numeroGerado > 0.66) {
-        return "scissors";
+        return "Tesoura";
     }
 }
 
-function playerSelection(){
-    playerHand = prompt("Type your hand: Rock, Paper or Scissors?");
-    return playerHand.toLowerCase();
-}
-
-
-function game(){
-    humanWins = 0, computerWins = 0;
-    for (i=0; i<5; i++){
-        function playRound(playerSelection, computerPlay){
-            player = playerSelection;
-            computer = computerPlay;
-            console.log("Mão do Computer: "+computer);
-            if (player === computer){
-                return console.log("Draw Game");
-            } else if (player === "rock" && computer === "scissors"){
-                humanWins += 1;
-                return console.log("Human Wins");
-            } else if (player === "rock" && computer === "paper"){
-                computerWins += 1;
-                return console.log("Computer Wins");
-            } else if (player === "paper" && computer === "scissors"){
-                computerWins += 1;
-                return console.log("Computer Wins");
-            } else if (player === "paper" && computer === "rock"){
-                humanWins += 1;
-                return console.log("Human Wins");
-            } else if (player === "scissors" && computer === "paper"){
-                humanWins += 1;
-                return console.log("Human Wins");
-            } else if (player === "scissors" && computer === "rock"){
-                computerWins += 1;
-                return console.log("Computer Wins");
-            }
-        }
-        playRound(playerSelection(), computerPlay());
-        console.log("Vitórias dos Humanos: "+ humanWins);
-        console.log("Vitórias dos Computers: "+ computerWins);
+const pedra = document.querySelector(".pedra");
+pedra.addEventListener('click', clica => {
+    switch (computerPlay()){
+        case 'Pedra':
+            alert('CPU: Pedra\r\nResultado: Empate!');
+            break;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+        case 'Papel':
+            alert('CPU: Papel\r\nResultado: Você perdeu!!');
+            computerScore += 1;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+        case 'Tesoura':
+            alert('CPU: Tesoura\r\nResultado: Você ganhou!!');
+            humanScore += 1;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
     }
-}
-game();
+});
+
+const papel = document.querySelector(".papel");
+papel.addEventListener('click', clica => {
+    switch (computerPlay()){
+        case 'Pedra':
+            alert('CPU: Pedra\r\nResultado: Você ganhou!!');
+            humanScore += 1;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+        case 'Papel':
+            alert('CPU: Papel\r\nResultado: Empate!!');
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+        case 'Tesoura':
+            alert('CPU: Tesoura\r\nVocê perdeu!!');
+            computerScore += 1;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+    }
+});
+
+const tesoura = document.querySelector(".tesoura");
+tesoura.addEventListener('click', clica => {
+    switch (computerPlay()){
+        case 'Pedra':
+            alert('CPU: Pedra\r\nResultado: Você perdeu!!');
+            computerScore += 1;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+        case 'Papel':
+            alert('CPU: Tesoura\r\nVocê ganhou!!');
+            humanScore += 1;
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+        case 'Tesoura':
+            alert('CPU: Tesoura\r\nEmpate!!');
+            score.textContent = 'Humano:'+ humanScore+' CPU: '+computerScore;
+            container.appendChild(score);
+            break;
+    }
+});
